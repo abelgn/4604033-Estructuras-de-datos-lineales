@@ -57,33 +57,21 @@ NodoD<T> *ListaLigadaD<T>::fin() const {
 
 template <typename T>
 bool ListaLigadaD<T>::insertar(T x, NodoD<T> *p) {
-    NodoD<T> *nuevo = new NodoD<T>();
-    nuevo->elem = x;
-    nuevo->siguiente = p;
-    nuevo->previo = p->previo;
-    p->previo->siguiente = nuevo;
-    p->previo = nuevo;
+    // implementar
     return true;
 }
 
 
 template <typename T>
 bool ListaLigadaD<T>::eliminar(NodoD<T> *p) {
-    p->previo->siguiente = p->siguiente;
-    p->siguiente->previo = p->previo;
-    delete p;
+    // implementar
     return true;
 }
 
 
 template <typename T>
 NodoD<T> *ListaLigadaD<T>::buscar(T x) const {
-    NodoD<T> *p = cabeza->siguiente;
-    while (p->elem != x
-           && p->siguiente != cola)
-        p = p->siguiente;
-    if (p->elem != x)
-        p = NULL;
+    // implementar
     return p;
 }
 
@@ -114,17 +102,13 @@ NodoD<T> *ListaLigadaD<T>::anterior(NodoD<T> *p) const {
 
 template <typename T>
 void ListaLigadaD<T>::hacerVacia() {
-    while (!esVacia()) {
-        cabeza = cabeza->siguiente;
-        delete cabeza->previo;
-        cabeza->previo = NULL;
-    }
+    // implementar
 }
 
 
 template <typename T>
 bool ListaLigadaD<T>::esVacia() const {
-    return (cabeza->siguiente == cola);
+    // implementar
 }
 
 
