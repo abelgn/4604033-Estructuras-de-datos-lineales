@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "lista_ligada_generica_d2.h"
+#include "lista_ligada_generica_d.h"
 
 using namespace std;
 
