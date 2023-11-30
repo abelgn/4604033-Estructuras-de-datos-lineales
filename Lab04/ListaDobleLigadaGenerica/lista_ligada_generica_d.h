@@ -23,7 +23,8 @@ private:
     NodoD<T> *cabeza;
     NodoD<T> *cola;
     int numTlementos;
-    friend std::ostream& operator<<(std::ostream &, const ListaLigadaD<T> &);
+    template <typename U>
+    friend std::ostream& operator<<(std::ostream &, const ListaLigadaD<U> &);
 };
 
 
@@ -56,21 +57,33 @@ NodoD<T> *ListaLigadaD<T>::fin() const {
 
 template <typename T>
 bool ListaLigadaD<T>::insertar(T x, NodoD<T> *p) {
-    // implementar
+    NodoD<T> *nuevo = new NodoD<T>();
+    nuevo->elem = x;
+    nuevo->siguiente = p;
+    nuevo->previo = p->previo;
+    p->previo->siguiente = nuevo;
+    p->previo = nuevo;
     return true;
 }
 
 
 template <typename T>
 bool ListaLigadaD<T>::eliminar(NodoD<T> *p) {
-    // implementar
+    p->previo->siguiente = p->siguiente;
+    p->siguiente->previo = p->previo;
+    delete p;
     return true;
 }
 
 
 template <typename T>
 NodoD<T> *ListaLigadaD<T>::buscar(T x) const {
-    // implementar
+    NodoD<T> *p = cabeza->siguiente;
+    while (p->elem != x
+           && p->siguiente != cola)
+        p = p->siguiente;
+    if (p->elem != x)
+        p = NULL;
     return p;
 }
 
@@ -101,13 +114,17 @@ NodoD<T> *ListaLigadaD<T>::anterior(NodoD<T> *p) const {
 
 template <typename T>
 void ListaLigadaD<T>::hacerVacia() {
-    // implementar
+    while (!esVacia()) {
+        cabeza = cabeza->siguiente;
+        delete cabeza->previo;
+        cabeza->previo = NULL;
+    }
 }
 
 
 template <typename T>
 bool ListaLigadaD<T>::esVacia() const {
-    // implementar
+    return (cabeza->siguiente == cola);
 }
 
 
@@ -117,16 +134,24 @@ int ListaLigadaD<T>::getNumTlementos() const {
 }
 
 
-
 template <typename T>
 std::ostream& operator<<(std::ostream &strm, const ListaLigadaD<T> &lista) {
     std::string elem = "";
     NodoD<T> *pos = lista.primera();
-    while (pos != lista.fin()) {
-        elem += lista.obtener(pos) + ", ";
-        pos = lista.siguiente(pos);
+    if (std::string(typeid(T).name()).compare("c") != 0) {
+        while (pos != lista.fin()) {
+            elem += std::to_string(lista.obtener(pos)) + ", ";
+            pos = lista.siguiente(pos);
+        }
+    }
+    else {
+        std::cout << "aqui" << std::endl;
+        while (pos != lista.fin()) {
+            elem += (char) lista.obtener(pos);
+            elem += ", ";
+            pos = lista.siguiente(pos);
+        }
     }
     elem += "\b\b";
     return strm << "(" << elem << ")";
 }
-
