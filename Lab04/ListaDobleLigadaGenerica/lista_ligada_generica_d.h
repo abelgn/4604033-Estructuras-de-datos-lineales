@@ -145,7 +145,6 @@ std::ostream& operator<<(std::ostream &strm, const ListaLigadaD<T> &lista) {
         }
     }
     else {
-        std::cout << "aqui" << std::endl;
         while (pos != lista.fin()) {
             elem += (char) lista.obtener(pos);
             elem += ", ";
