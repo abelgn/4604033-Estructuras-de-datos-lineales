@@ -4,7 +4,6 @@ template <typename T>
 class Lista {
 public:
     Lista(int tam = 10);
-    T &operator[](int i) const;
     int fin() const;
     bool insertar(T x, int p);
     bool eliminar(int p);
@@ -20,7 +19,8 @@ private:
     int tamaño;
     T *elementos;
     int ultimo;
-    friend std::ostream& operator<<(std::ostream&, const Lista<T>&);
+    template <typename U>
+    friend std::ostream& operator<<(std::ostream&, const Lista<U>&);
 };
 
 
@@ -35,12 +35,6 @@ Lista<T>::Lista(int tam) {
 template <typename T>
 int Lista<T>::fin() const {
     return ultimo+1;
-}
-
-
-template <typename T>
-T &Lista<T>::operator[](int i) const {
-    return elementos[i];
 }
 
 
@@ -130,8 +124,8 @@ void Lista<T>::hacerVacia() {
 }
 
 
-template <typename T>
-std::ostream& operator<<(std::ostream &strm, const Lista<T> &lista) {
+template <typename U>
+std::ostream& operator<<(std::ostream &strm, const Lista<U> &lista) {
     std::string elem = "";
     int pos = lista.primera();
     while (pos != lista.fin()) {
