@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "lista_ligada_c2.h"
+#include "lista_ligada_c.h"
 
 using namespace std;
 
