@@ -12,7 +12,7 @@ public:
     int tamaño() const;
     
 private:
-    int TAM_MAX;
+    const int TAM_MAX;
     T *cola;
     int numElementos;
     int primero;
@@ -23,8 +23,7 @@ private:
 
 
 template <typename T>
-Cola<T>::Cola(int N) {
-    TAM_MAX = N;
+Cola<T>::Cola(int N) : TAM_MAX ( N ) {
     cola = new T[TAM_MAX];
     numElementos = 0;
     primero = 0;
