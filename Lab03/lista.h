@@ -5,28 +5,26 @@
 
 class Lista : public ILista {
 public:
-    Lista();
+    Lista(int tam);
     int fin() const;
     bool insertar(int x, int p);
     bool eliminar(int p);
     int buscar(int x) const;
     int obtener(int p) const;
-    int primera() const;
-    int siguiente(int p) const;
-    int anterior(int p) const;
     void hacerVacia();
     bool esVacia() const;
 
 private:
     friend std::ostream& operator<<(std::ostream&, const Lista&);
-    static const int TAM_MAX = 100;
-    int elementos[TAM_MAX];
-    int ultimo;
+    const int TAM_MAX;
+    int *elementos;
 };
 
 
-Lista::Lista() {
-    ultimo = -1;
+Lista::Lista(int tam):
+    TAM_MAX(tam) {
+    num_elementos = 0;
+    int *elementos = new int[TAM_MAX];
 }
 
 
@@ -41,7 +39,7 @@ bool Lista::insertar(int x, int p) {
         for (int i = ultimo; i >= p; i--)
             elementos[i+1] = elementos[i];
         elementos[p] = x;
-        ultimo += 1;
+        num_elementos++;
         exito = true;
     }
     return exito;
@@ -61,7 +59,7 @@ int Lista::buscar(int x) const {
 
 
 int Lista::obtener(int p) const {
-    int elemento = INT_MAX;
+    int elemento = std::numeric_limits<int>::max();
     if (p >= 0 && p <= ultimo)
         elemento = elementos[p];
     return elemento;
@@ -100,10 +98,10 @@ bool Lista::esVacia() const {
 
 std::ostream& operator<<(std::ostream &strm, const Lista &lista) {
     std::string elem = "";
-    int pos = lista.primera();
+    int pos = 0;
     while (pos != lista.fin()) {
         elem += std::to_string(lista.obtener(pos)) + ", ";
-        pos = lista.siguiente(pos);
+        pos++;
     }
     elem += "\b\b";
     return strm << "(" << elem << ")";
