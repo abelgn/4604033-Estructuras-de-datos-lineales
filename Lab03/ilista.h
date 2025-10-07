@@ -35,7 +35,7 @@ public:
     
     /*
      Devuelve el elemento en la posición p de L. El resultado es 
-     indefinido si p es fin() o si L no tiene posición p.
+     indefinido (valor muy grande) si p es fin() o si L no tiene posición p.
      */
     virtual int obtener(int p) const = 0;
     
@@ -48,8 +48,4 @@ public:
      Devuelve true si la lista no contiene elementos, false en otro caso.
      */
     virtual bool esVacia() const = 0;
-    
-
-protected:
-    int num_elementos;
 };
