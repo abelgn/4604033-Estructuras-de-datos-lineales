@@ -2,9 +2,9 @@ class ILista {
 public:
     
     /*
-     Devuelve la posición siguiente al último elemento en la lista.
+     Devuelve el número de elementos en la lista.
      */
-    virtual int fin() const = 0;
+    virtual int getNumElementos() const = 0;
     
     /*
      Inserta a x en la posición p de L, moviendo los elementos en p y 
