@@ -9,7 +9,7 @@ using namespace std;
 int main() {
     Lista l(10);
     for (int i = 1; i <= 10; i++)
-        l.insertar(i, l.fin());
+        l.insertar(i, l.getNumElementos());
     cout << l << endl;
     return EXIT_SUCCESS;
 }
