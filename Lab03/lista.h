@@ -7,7 +7,7 @@ class Lista : public ILista {
 public:
     Lista(int tam);
     ~Lista();
-    int fin() const;
+    int getNumElementos() const;
     bool insertar(int x, int p);
     bool eliminar(int p);
     int buscar(int x) const;
@@ -35,7 +35,7 @@ Lista::~Lista() {
 }
 
 
-int Lista::fin() const {
+int Lista::getNumElementos() const {
     return num_elementos;
 }
 
@@ -95,7 +95,7 @@ pantalla como salida estándar.
 std::ostream& operator<<(std::ostream &strm, const Lista &lista) {
     std::string elem = "";
     int pos = 0;
-    while (pos != lista.fin()) {
+    while (pos < lista.getNumElementos()) {
         elem += std::to_string(lista.obtener(pos)) + ", ";
         pos++;
     }
