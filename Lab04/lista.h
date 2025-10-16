@@ -53,10 +53,7 @@ bool Lista::insertar(int x, Nodo *p) {
     if (numElementos == 0)
         insertarVacia(x);
     else {
-        Nodo *q = sentinela;
-        while (q != p)
-            q = q->getSiguiente();
-        q->setSiguiente(new Nodo(x, p->getSiguiente()));
+        p->setSiguiente(new Nodo(x, p->getSiguiente()));
     }
     numElementos += 1;
     return exito;
