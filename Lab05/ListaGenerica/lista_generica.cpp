@@ -20,8 +20,6 @@ int main() {
         ls.insertar(hola + static_cast<char>(i+'a'), ls.getNumElementos());
     }
     
-    cout << ld.obtener(7) << endl;
-
     cout << li << endl;
     cout << ld << endl;
     cout << lc << endl;
