@@ -44,11 +44,11 @@ template <typename T>
 class PilaDoble {
 public:
     PilaDoble<T>(int tam);
-    void push(T x, int id_pila) throw(StackFullException, WrongStackIdException);
-    void pop(int id_pila) throw(StackEmptyException, WrongStackIdException);
-    T top(int id_pila) const throw(StackEmptyException, WrongStackIdException);
-    bool esVacia(int id_pila) const throw(WrongStackIdException);
-    int getNumElementos(int id_pila) const throw(WrongStackIdException);
+    void push(T x, int id_pila);
+    void pop(int id_pila);
+    T top(int id_pila) const;
+    bool esVacia(int id_pila) const;
+    int getNumElementos(int id_pila) const;
     
 private:
     const int TAM_MAX;
@@ -66,32 +66,64 @@ PilaDoble<T>::PilaDoble(int tam) {
 }
 
 
+/**
+ * Agrega el elemento <code>x<\code> a la pila indicada por <code>id_pila<\code>.
+ * @param x Elemento a agregar.
+ * @param id_pila Identificador de la pila (1 o 2).
+ * @throws WrongStackIdException si el identificador de pila es inválido.
+ * @throws StackFullException si la pila doble está llena.
+ */
 template <typename T>
-void PilaDoble<T>::push(T x, int id_pila) throw(StackFullException, WrongStackIdException) {
+void PilaDoble<T>::push(T x, int id_pila) {
     // implementar
 }
 
 
+/**
+ * Elimina el elemento en el tope de la pila indicada por <code>id_pila<\code>.
+ * @param id_pila Identificador de la pila (1 o 2).
+ * @throws WrongStackIdException si el identificador de pila es inválido.
+ * @throws StackEmptyException si la pila indicada está vacía.
+ */
 template <typename T>
-void PilaDoble<T>::pop(int id_pila) throw(StackEmptyException, WrongStackIdException) {
+void PilaDoble<T>::pop(int id_pila) {
     // implementar
 }
 
 
+/**
+ * Regresa el elemento en el tope de la pila indicada por <code>id_pila<\code>.
+ * @param id_pila Identificador de la pila (1 o 2).
+ * @return Elemento en el tope de la pila.
+ * @throws WrongStackIdException si el identificador de pila es inválido.
+ * @throws StackEmptyException si la pila indicada está vacía.
+ */
 template <typename T>
-T PilaDoble<T>::top(int id_pila) const throw(StackEmptyException, WrongStackIdException) {
+T PilaDoble<T>::top(int id_pila) const {
     // implementar
 }
 
 
+/**
+ * Indica si la pila indicada por <code>id_pila<\code> está vacía.
+ * @param id_pila Identificador de la pila (1 o 2).
+ * @return <code>true<\code> si la pila está vacía, <code>false<\code> en otro caso.
+ * @throws WrongStackIdException si el identificador de pila es inválido.
+ */
 template <typename T>
-bool PilaDoble<T>::esVacia(int id_pila) const throw (WrongStackIdException) {
+bool PilaDoble<T>::esVacia(int id_pila) const {
     // implementar
 }
 
 
+/**
+ * Regresa el número de elementos en la pila indicada por <code>id_pila<\code>.
+ * @param id_pila Identificador de la pila (1 o 2).
+ * @return Número de elementos en la pila.
+ * @throws WrongStackIdException si el identificador de pila es inválido.
+ */
 template <typename T>
-int PilaDoble<T>::getNumElementos(int id_pila) const throw (WrongStackIdException) {
+int PilaDoble<T>::getNumElementos(int id_pila) const {
     // implementar
 }
 

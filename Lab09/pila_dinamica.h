@@ -43,8 +43,8 @@ public:
     Pila();
     ~Pila();
     void push(T x);
-    void pop() throw(StackEmptyException);
-    T top() const throw(StackEmptyException);
+    void pop();
+    T top() const;
     bool esVacia() const;
     int getNumElementos() const;
       
@@ -64,7 +64,7 @@ public:
      * @throws StackEmptyException si la <code>Pila<\code> esta
      * vacía.
      */
-    void pop(int k) throw(StackEmptyException);
+    void pop(int k);
     
     /**
      * Invierte el orden de los elementos en la <code>Pila<\code>.
@@ -102,7 +102,7 @@ void Pila<T>::push(T x) {
 
 
 template <typename T>
-void Pila<T>::pop() throw(StackEmptyException) {
+void Pila<T>::pop() {
     if (esVacia())
         throw StackEmptyException("Eliminando de una pila vacía");
     Nodo<T> *p = tope;
@@ -113,7 +113,7 @@ void Pila<T>::pop() throw(StackEmptyException) {
 
 
 template <typename T>
-T Pila<T>::top() const throw(StackEmptyException) {
+T Pila<T>::top() const {
     if (esVacia())
         throw StackEmptyException("Solicitando el tope de una pila vacía");
     return tope->elemento;
@@ -139,7 +139,7 @@ void Pila<T>::push(Pila<T> &s) {
 
 
 template <typename T>
-void Pila<T>::pop(int k) throw(StackEmptyException) {
+void Pila<T>::pop(int k) {
     // implementar
 }
 
