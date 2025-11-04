@@ -1,12 +1,44 @@
+#ifndef COLA_H
+#define COLA_H
+
 #include <string>
+
+
+class RuntimeException {
+public:
+    RuntimeException(const std::string& err) {
+        errorMsg = "Error: " + err + "\n";
+    }
+    
+    std::string getMessage() const {
+        return errorMsg;
+    }
+    
+private:
+    std::string errorMsg;
+};
+
+
+class QueueEmptyException : public RuntimeException {
+public:
+    QueueEmptyException(const std::string& err)
+    : RuntimeException(err) { }
+};
+
+
+class QueueFullException : public RuntimeException {
+public:
+    QueueFullException(const std::string& err)
+    : RuntimeException(err) { }
+};
+
 
 template <typename T>
 class Cola {
 public:
-    Cola<T>(int N);
-    ~Cola<T>();
-    bool enqueue(T x);
-    bool dequeue();
+    Cola<T>(int tam);
+    void enqueue(T x);
+    void dequeue();
     T frente() const;
     bool esVacia() const;
     int getNumElementos() const;
@@ -14,88 +46,94 @@ public:
 private:
     const int TAM_MAX;
     T *cola;
-    int numElementos;
+    int num_elementos;
     int primero;
     int ultimo;
     template <typename U>
-    friend std::ostream& operator<<(std::ostream&, const Cola<U>&);
+    friend std::ostream& operator<<(std::ostream &, const Cola<U> &);
 };
 
 
 template <typename T>
-Cola<T>::Cola(int N) : TAM_MAX ( N ) {
+Cola<T>::Cola(int tam) : TAM_MAX(tam) {
     cola = new T[TAM_MAX];
-    numElementos = 0;
+    num_elementos = 0;
     primero = 0;
     ultimo = -1;
 }
 
 
 template <typename T>
-Cola<T>::~Cola() {
-    delete cola;
+void Cola<T>::enqueue(T x) {
+    if (num_elementos == TAM_MAX)
+        throw QueueFullException("Insertando en una cola llena.");
+    ultimo = (ultimo + 1) % TAM_MAX;
+    cola[ultimo] = x;
+    num_elementos++;
 }
 
 
 template <typename T>
-bool Cola<T>::enqueue(T x) {
-    bool exito = false;
-    if (numElementos < TAM_MAX) {
-        ultimo = (ultimo + 1) % TAM_MAX;
-        cola[ultimo] = x;
-        numElementos += 1;
-        exito = true;
-    }
-    return exito;
-}
-
-
-template <typename T>
-bool Cola<T>::dequeue() {
-    bool exito = false;
-    if (!esVacia()) {
-        primero = (primero + 1) % TAM_MAX;
-        numElementos -= 1;
-        exito = true;
-    }
-    return exito;
+void Cola<T>::dequeue() {
+    if (esVacia())
+        throw QueueEmptyException("Eliminando de una cola vacía.");
+    primero = (primero + 1) % TAM_MAX;
+    num_elementos--;
 }
 
 
 template <typename T>
 T Cola<T>::frente() const {
-    T elemento;
-    if (!esVacia()) {
-        elemento = cola[primero];
-    }
-    return elemento;
+    if (esVacia())
+        throw QueueEmptyException("Solicitando el frente de una cola vacía.");
+    return cola[primero];
 }
 
 
 template <typename T>
 bool Cola<T>::esVacia() const {
-    return numElementos == 0;
+    return num_elementos == 0;
 }
 
 
 template <typename T>
 int Cola<T>::getNumElementos() const {
-    return numElementos;
+    return num_elementos;
 }
 
 
+std::string convertir(int elem) {
+    return std::to_string(elem);
+}
+
+std::string convertir(double elem) {
+    return std::to_string(elem);
+}
+
+std::string convertir(char elem) {
+    std::string s(1, elem);
+    return s;
+}
+
+std::string convertir(std::string elem) {
+    return elem;
+}
+
 template <typename T>
-std::ostream& operator<<(std::ostream &strm, const Cola<T> &q) {
+std::ostream& operator<<(std::ostream &strm, const Cola<T> &cola) {
     std::string elem = "";
-    if (!q.esVacia()) {
-        int pos = q.primero;
-        int i = 0;
-        while (i < q.getNumElementos()) {
-            elem += std::to_string(q.cola[pos]) + ", ";
-            pos = (pos + 1) % q.TAM_MAX;
-            i += 1;
+    if (cola.num_elementos == 1) {
+        elem += convertir(cola.cola[cola.primero]);
+    }
+    else if (cola.num_elementos > 1) {
+        int pos = cola.primero;
+        while (pos != cola.ultimo) {
+            elem += convertir(cola.cola[pos]) + ", ";
+            pos = (pos + 1) % cola.TAM_MAX;
         }
-        elem += "\b\b";
+        elem += convertir(cola.cola[pos]);
     }
     return strm << "(" << elem << ")";
 }
+
+#endif // COLA_H
