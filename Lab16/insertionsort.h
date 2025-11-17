@@ -1,5 +1,5 @@
-#ifndef SELECTIONSORT_H
-#define SELECTIONSORT_H
+#ifndef INSERTIONSORT_H
+#define INSERTIONSORT_H
 
 
 long long insertionsort_ni(int A[], int n) {
@@ -36,4 +36,4 @@ void insertionsort(int A[], int n) {
     }
 }
 
-#endif // SELECTIONSORT_H
+#endif // INSERTIONSORT_H
